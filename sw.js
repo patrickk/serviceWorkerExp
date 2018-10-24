@@ -120,7 +120,7 @@ self.addEventListener('fetch', function(e) {
     e.respondWith(
         setInterval( () => {  
         // fetch('https://jsonplaceholder.typicode.com/todos/1')
-        fetch('http://localhost:3000/profile')
+        fetch('https://rest-test-1234.herokuapp.com/profile')
             .then(response => response.json())
             .then(json => console.log(json))
             .then(() => console.log(`${new Date().toLocaleString()}`));
