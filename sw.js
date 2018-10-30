@@ -73,6 +73,23 @@ self.addEventListener('activate', function(e) {
     );
 });
 
+
+
+
+self.addEventListener('sync', function(event) {
+    if (event.tag == 'myFirstSync') {
+      event.waitUntil(
+        setInterval( () => {
+            // fetch('https://jsonplaceholder.typicode.com/todos/1')
+            fetch('https://rest-test-1234.herokuapp.com/profile')
+                .then(response => response.json())
+                .then(json => console.log(json))
+                .then(() => console.log(`${new Date().toLocaleString()}`));
+            }, 5000).then(() => console.log('done'))
+      );
+    }
+  });
+
 // Listen for sync event... Where should this be implemented?
 // self.addEventListener('sync', function(event) {
 //     if (event.tag == 'myFirstSync') {
@@ -114,35 +131,35 @@ self.addEventListener('fetch', (event) => {
 // .then(response => response.json())
 // .then(json => console.log(json));
 
-self.addEventListener('fetch', function(e) {
-    let i = 0;
-    console.log(e);
-    e.respondWith(
-        setInterval( () => {  
-        // fetch('https://jsonplaceholder.typicode.com/todos/1')
-        fetch('https://rest-test-1234.herokuapp.com/profile')
-            .then(response => response.json())
-            .then(json => console.log(json))
-            .then(() => console.log(`${new Date().toLocaleString()}`));
-        }, 5000).then(
-            // .then(
-        // Looks at the request and finds any cached results from any of the caches your SW created
-        console.log(e.request),
-        // console.log(caches),
-        caches.match(e.request)
-        // If matching response, return the cached val. Else, return result of a call to fetch aka make
-        // a network request and return the data if anything can be retrieved from network
-            )
-        .then(function(response) {
-            console.log(response);
-            if(response) {
-                console.log(`Successfully fetched from cache: ${e.request.url}`);
-                return response;
-            } else {
-                console.error(`Failed to fetch src: ${e.request.url}`);
-            }
-            return fetch(e.request);
-        })
-    );
-});
+// self.addEventListener('fetch', function(e) {
+//     let i = 0;
+//     console.log(e);
+//     e.respondWith(
+//         setInterval( () => {
+//         // fetch('https://jsonplaceholder.typicode.com/todos/1')
+//         fetch('https://rest-test-1234.herokuapp.com/profile')
+//             .then(response => response.json())
+//             .then(json => console.log(json))
+//             .then(() => console.log(`${new Date().toLocaleString()}`));
+//         }, 5000).then(
+//             // .then(
+//         // Looks at the request and finds any cached results from any of the caches your SW created
+//         console.log(e.request),
+//         // console.log(caches),
+//         caches.match(e.request)
+//         // If matching response, return the cached val. Else, return result of a call to fetch aka make
+//         // a network request and return the data if anything can be retrieved from network
+//             )
+//         .then(function(response) {
+//             console.log(response);
+//             if(response) {
+//                 console.log(`Successfully fetched from cache: ${e.request.url}`);
+//                 return response;
+//             } else {
+//                 console.error(`Failed to fetch src: ${e.request.url}`);
+//             }
+//             return fetch(e.request);
+//         })
+//     );
+// });
 

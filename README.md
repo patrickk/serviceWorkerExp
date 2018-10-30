@@ -1,6 +1,36 @@
 # SERVICE WORKER EXPERIMENT
 
 
+## Instructions
+
+1. Navigate to https://patrickk.github.io/serviceWorkerExp/
+2. Open up console and see that a current date entry and a simple object returns.
+    - Object: `{name: "typicode"}`
+    - This is hitting an endpoint as defined on  https://rest-test-1234.herokuapp.com/profile
+    - To see other endpoints, navigate to the url above without `profile`.
+3. Close out of tab and wait about 10 seconds.
+4. Re-open tab back up and check console.
+    - Console should show that the SW was hitting this endpoint even with the tab closed, as the timestamp notes.
+
+
+
+## TODO
+1. Investigate using [Background Sync](https://developers.google.com/web/updates/2015/12/background-sync)
+    - Aaron was saying this is what we'd want to use to phone home/keep in contact with MAD server
+    - May want to look into using [Workbox](https://developers.google.com/web/tools/workbox/) since it comes with a whole lotta tools for Service Workers and makes it easier to set up SWs.
+2. When user closes tab and opens tab back, it seems like the fetch api is hitting the endpoint several times at once. Investigate why this occurs. We wouldn't want SW to hit endpoint multiple times whenever a tab is closed then opened. 
+3. Investigate how to "refresh" Service Worker every 24 hours.
+4. Clean up code and take out unnecessary comments.
+
+
+
+
+## Results
+- On desktop Chrome/Brave, SWs seemed to work well in running in background, even with tabs closed. 
+    - By running `heroku logs --tail` I was able to see that the endpoint was getting hit even with the tab closed. 
+- Aaron's Android Chrome showed that the SW was running even when he closed out of his browser/phone. Only when he went on airplane mode did the SW stop hitting the endpoint. This was done w/out background sync, so it may be worthwhile to take a look at using background sync. 
+
+
 
 ## Notes
 
